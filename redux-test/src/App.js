@@ -1,12 +1,21 @@
 import "./App.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "./state/index";
 
 function App() {
   const account = useSelector((state) => state.account);
-  console.log(account);
+  const dispatch = useDispatch();
+  const { depositMoney, withdrawMoney } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+
   return (
     <div className="App">
       <h1>Account Amount: {account}</h1>
+      <button onClick={() => depositMoney(1)}>Deposit</button>
+      <button onClick={() => withdrawMoney(1)}>Withdraw</button>
     </div>
   );
 }
